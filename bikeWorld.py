@@ -14,8 +14,10 @@ class Customer(object):
     if self.budget > bike.cost * margin + bike.cost:
       print '\nCongratulations %s, You purchased a %s for $%d' %(self.name,bike.model,(bike.cost * margin + bike.cost))
       print 'You have $%d remaining in your budget\n' %(self.budget - (bike.cost * margin + bike.cost))
+      return True
     else:
-      print '\n%s, you need and additional $%d to purchase a %s bike' %(self.name,((bike.cost * margin + bike.cost) - self.budget),bike.model)
+      #print '\n%s, you need and additional $%d to purchase a %s bike' %(self.name,((bike.cost * margin + bike.cost) - self.budget),bike.model)
+      return False
 
 class Part(object):
   def __init__(self,weight,cost):

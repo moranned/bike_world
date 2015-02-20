@@ -80,6 +80,15 @@ def main():
       MODELS[bike].weight = total_weight
       MODELS[bike].cost = total_cost
 
+
+      if CUSTOMERS[customer].purchase(MODELS[bike],SHOP.margin):
+        SHOP.profit += SHOP.sell(MODELS[bike],SHOP.margin)
+        MODELS[bike].stock -= 1
+        print '\nHey boss, weve made $%d today' %SHOP.profit
+      else:
+        print '\n%s, you need and additional $%d to purchase a %s bike' %(customer,((MODELS[bike].cost * SHOP.margin + MODELS[bike].cost) - CUSTOMERS[customer].budget),MODELS[bike].model)
+
+      '''
       if CUSTOMERS[customer].budget > (MODELS[bike].cost * SHOP.margin) + MODELS[bike].cost:
         CUSTOMERS[customer].purchase(MODELS[bike],SHOP.margin)
         SHOP.profit += SHOP.sell(MODELS[bike],SHOP.margin)
@@ -87,6 +96,7 @@ def main():
         print '\nHey boss, weve made $%d today' %SHOP.profit
       else:
         CUSTOMERS[customer].purchase(MODELS[bike],SHOP.margin)
+      '''
 
 if __name__ == '__main__':
   main()
