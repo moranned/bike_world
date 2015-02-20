@@ -43,30 +43,37 @@ FRAME = {
 
 SHOP = Shop('Bike World',INVENTORY,.2,0)
 
+def show_wheels():
+  print '%-15s %s' %('MODEL','PRICE')
+  for wheel,object in WHEEL.iteritems():
+    print '%-15s %s' %(wheel, object.cost)
+
+def show_frames():
+  print '%-15s %s' %('TYPE','PRICE')
+  for frame,object in FRAME.iteritems():
+    print '%-15s %s' %(frame, object.cost)
+
+def show_customers():
+  for customer in CUSTOMERS.keys():
+    print customer
+
 def get_inventory():
   print '%-15s %s' %('MODEL','ITEMS REMAINING')
   for model, count in INVENTORY.iteritems():
     print '%-15s %d' %(model,count)
 
 def main():
-  print 'Welcome to %s. We have the following models in stock at our shop:' %SHOP.name
-  get_inventory()
-
-  print '\nWe have the following Wheels in stock:'
-  print '%-15s %s' %('MODEL','PRICE')
-  for wheel,object in WHEEL.iteritems():
-    print '%-15s %s' %(wheel, object.cost)
-
-  print '\nWe have the following Frames in stock:'
-  print '%-15s %s' %('TYPE','PRICE')
-  for frame,object in FRAME.iteritems():
-    print '%-15s %s' %(frame, object.cost)
-
-  print '\nThe following customers are in the store:'
-  for customer in CUSTOMERS.keys():
-    print customer
 
   while True:
+    print '\nWelcome to %s. We have the following models in stock at our shop:' %SHOP.name
+    get_inventory()
+    print '\nWe have the following Wheels in stock:'
+    show_wheels()
+    print '\nWe have the following Frames in stock:'
+    show_frames()
+    print '\nThe following customers are in the store:'
+    show_customers()
+
     customer = raw_input('\nHello, I am your automated Sales assistant. What is your name? ')
     continue_purchase = raw_input('Would you like to purchase a bike today? ')
     if continue_purchase.lower() not in ANSWERS:
@@ -86,8 +93,6 @@ def main():
         CUSTOMERS[customer].purchase(MODELS[bike],SHOP.margin)
         SHOP.profit += SHOP.sell(MODELS[bike],SHOP.margin)
         INVENTORY[bike] -= 1
-        print 'We now have the following models in stock at our shop:'
-        get_inventory()
         print '\nHey boss, weve made $%d today' %SHOP.profit
       else:
         CUSTOMERS[customer].purchase(MODELS[bike],SHOP.margin)
