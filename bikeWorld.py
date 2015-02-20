@@ -23,8 +23,9 @@ class Part(object):
     self.cost = cost
 
 class Bicycle(Part):
-  def __init__(self,model,weight,cost):
+  def __init__(self,model,weight,cost,stock):
     self.model = model
+    self.stock = stock
     super(Bicycle,self).__init__(weight,cost)
 
   def calculate_weight(self,wheel,frame):
@@ -45,9 +46,8 @@ class Frame(Part):
 
 class Shop(object):
 
-  def __init__(self,name,inventory,margin,profit):
+  def __init__(self,name,margin,profit):
     self.name = name
-    self.inventory = inventory
     self.margin = margin
     self.profit = profit
 

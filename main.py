@@ -5,27 +5,18 @@ from bikeWorld import Bicycle,Shop,Customer,Wheel,Frame
 ANSWERS = ['yes','y']
 
 MODELS = {
-  "Trek":Bicycle('Trek',0,0),
-  "Cannondale":Bicycle('Cannondale',0,0),
-  "Schwinn":Bicycle('Schwinn',0,0),
-  "Lemond":Bicycle('Lemond',0,0),
-  "Huffy":Bicycle('Huffy',0,0),
-  "Fuji":Bicycle('Fuji',0,0)
+  "Trek":Bicycle('Trek',0,0,5),
+  "Cannondale":Bicycle('Cannondale',0,0,5),
+  "Schwinn":Bicycle('Schwinn',0,0,5),
+  "Lemond":Bicycle('Lemond',0,0,5),
+  "Huffy":Bicycle('Huffy',0,0,5),
+  "Fuji":Bicycle('Fuji',0,0,5)
 }
 
 CUSTOMERS = {
   "Ned":Customer('Ned',500),
   "Kara":Customer('Kara',1000),
   "Layla":Customer('Layla',200)
-}
-
-INVENTORY = {
-  "Trek" : 5,
-  "Cannondale" : 5,
-  "Schwinn" : 5,
-  "Lemond" : 5,
-  "Huffy" : 5,
-  "Fuji" : 5
 }
 
 WHEEL = {
@@ -41,7 +32,7 @@ FRAME = {
   "tin": Frame('tin',20,100)
 }
 
-SHOP = Shop('Bike World',INVENTORY,.2,0)
+SHOP = Shop('Bike World',.2,0)
 
 def show_wheels():
   print '%-15s %s' %('MODEL','PRICE')
@@ -59,8 +50,8 @@ def show_customers():
 
 def get_inventory():
   print '%-15s %s' %('MODEL','ITEMS REMAINING')
-  for model, count in INVENTORY.iteritems():
-    print '%-15s %d' %(model,count)
+  for model in MODELS.values():
+    print '%-15s %d' %(model.model,model.stock)
 
 def main():
 
@@ -92,7 +83,7 @@ def main():
       if CUSTOMERS[customer].budget > (MODELS[bike].cost * SHOP.margin) + MODELS[bike].cost:
         CUSTOMERS[customer].purchase(MODELS[bike],SHOP.margin)
         SHOP.profit += SHOP.sell(MODELS[bike],SHOP.margin)
-        INVENTORY[bike] -= 1
+        MODELS[bike].stock -= 1
         print '\nHey boss, weve made $%d today' %SHOP.profit
       else:
         CUSTOMERS[customer].purchase(MODELS[bike],SHOP.margin)
